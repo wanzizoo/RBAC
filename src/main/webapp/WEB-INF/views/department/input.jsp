@@ -1,17 +1,58 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@ page language="java" contentType="text/html;charset=UTF-8"
          pageEncoding="utf-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Insert title here</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>部门管理</title>
+    <%@include file="/WEB-INF/views/common/link.jsp"%>
 </head>
-<body>
-<h3>部门编辑</h3>
-<form action="/department/saveOrUpdate.do" method="post">
-        <input type="hidden" name="id" value="${department.id}"/>
-    名称:<input type="text" name="name" value="${department.name}"/><br/>
-    编码:<input type="text" name="sn" value="${department.sn}"/><br/>
-    <input type="submit" name="提交" />
-</form>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <%@include file="/WEB-INF/views/common/navbar.jsp" %>
+    <!--菜单回显-->
+    <c:set var="currentMenu" value="department"/>
+    <%@include file="/WEB-INF/views/common/menu.jsp" %>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>部门编辑</h1>
+        </section>
+        <section class="content">
+            <div class="box">
+                <form class="form-horizontal" action="/department/saveOrUpdate.do" method="post" id="editForm">
+                    <input type="hidden" value="${d.id}" name="id">
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label for="name" class="col-sm-1 control-label">名称：</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="name" name="name" value="${d.name}"
+                                   placeholder="请输入部门名">
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-top: 10px;">
+                        <label for="sn" class="col-sm-1 control-label">编码：</label>
+                        <div class="col-sm-4">
+                            <input type="text" class="form-control" id="sn" name="sn" value="${d.sn}"
+                                   placeholder="请输入部门编码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-1 col-sm-6">
+                            <button id="submitBtn" type="submit" class="btn btn-primary">保存</button>
+                            <button type="reset" class="btn btn-danger">重置</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+    </div>
+    <%@include file="/WEB-INF/views/common/footer.jsp" %>
+</div>
+
+
 </body>
+</html>

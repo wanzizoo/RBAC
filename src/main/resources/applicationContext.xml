@@ -11,12 +11,12 @@
         http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- IOC的注解扫描器 -->
-    <context:component-scan base-package="cn.wanzizoo.ssm"/>
+    <context:component-scan base-package="cn.wanzizoo.rbac"/>
 
     <!-- 将mapper代理对象的生命周期交给spring容器-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 告诉spring需要生成mapper代理对象的mapper接口所在位置 -->
-        <property name="basePackage" value="cn.wanzizoo.ssm.mapper"/>
+        <property name="basePackage" value="cn.wanzizoo.rbac.mapper"/>
     </bean>
 
 
@@ -25,11 +25,11 @@
         <!--指定mybatis主配置文件的位置 -->
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <!--mapper映射文件的配置 -->
-        <property name="mapperLocations" value="classpath:cn/wanzizoo/ssm/mapper/*Mapper.xml"/>
+        <property name="mapperLocations" value="classpath:cn/wanzizoo/rbac/mapper/*Mapper.xml"/>
         <!--连接池 ps：value改为ref引用 -->
         <property name="dataSource" ref="dataSource"/>
         <!--生成别名的类所在的包 -->
-        <property name="typeAliasesPackage" value="cn.wanzizoo.ssm.domain"/>
+        <property name="typeAliasesPackage" value="cn.wanzizoo.rbac.domain"/>
     </bean>
 
 
@@ -58,7 +58,7 @@
     </tx:advice>
     <!-- 使用aop织入到指定位置-->
     <aop:config>
-        <aop:pointcut id="txPointcut" expression="execution(* cn.wanzizoo.ssm.service.*.*(..))"/>
+        <aop:pointcut id="txPointcut" expression="execution(* cn.wanzizoo.rbac.service.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
     </aop:config>
 </beans>
