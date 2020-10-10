@@ -29,4 +29,13 @@
     select id, name, sn
     from department
   </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(*)
+    from department
+  </select>
+  <select id="selectList" resultType="cn.wanzizoo.rbac.domain.Department">
+    select id,name,sn
+    from department
+    limit #{start},#{pageSize}
+  </select>
 </mapper>

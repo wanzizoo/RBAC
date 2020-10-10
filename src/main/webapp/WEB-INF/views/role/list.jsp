@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>部门管理</title>
+    <title>角色管理</title>
     <%@include file="/WEB-INF/views/common/link.jsp"%>
 
 </head>
@@ -14,18 +14,18 @@
 <div class="wrapper">
     <%@include file="/WEB-INF/views/common/navbar.jsp"%>
     <!--菜单回显-->
-    <c:set var="currentMenu" value="department"/>
+    <c:set var="currentMenu" value="role"/>
     <%@include file="/WEB-INF/views/common/menu.jsp"%>
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>部门管理</h1>
+            <h1>角色管理</h1>
         </section>
         <section class="content">
             <div class="box">
                 <!--高级查询--->
-                <form class="form-inline" id="searchForm" action="/department/list.do" method="post">
+                <form class="form-inline" id="searchForm" action="/role/list.do" method="post">
                     <input type="hidden" name="currentPage" id="currentPage" value="${result.currentPage}">
-                    <a href="/department/input.do?currentPage=${result.currentPage}" class="btn btn-success btn-input" style="margin: 10px">
+                    <a href="/role/input.do?currentPage=${result.currentPage}" class="btn btn-success btn-input" style="margin: 10px">
                         <span class="glyphicon glyphicon-plus"></span> 添加
                     </a>
                 </form>
@@ -34,8 +34,8 @@
                     <table class="table table-hover table-bordered">
                         <tr>
                             <th>编号</th>
-                            <th>部门名称</th>
-                            <th>部门编号</th>
+                            <th>角色名称</th>
+                            <th>角色编号</th>
                             <th>操作</th>
                         </tr>
                         <c:forEach items="${result.data}" var="entity" varStatus="vs">
@@ -44,10 +44,10 @@
                                 <td>${entity.name}</td>
                                 <td>${entity.sn}</td>
                                 <td>
-                                    <a class="btn btn-info btn-xs btn-input" href="/department/input.do?id=${entity.id}&currentPage=${result.currentPage}">
+                                    <a class="btn btn-info btn-xs btn-input" href="/role/input.do?id=${entity.id}&currentPage=${result.currentPage}">
                                         <span class="glyphicon glyphicon-pencil"></span> 编辑
                                     </a>
-                                    <a href="/department/delete.do?id=${entity.id}&currentPage=${result.currentPage}" class="btn btn-danger btn-xs btn-delete">
+                                    <a href="/role/delete.do?id=${entity.id}&currentPage=${result.currentPage}" class="btn btn-danger btn-xs btn-delete">
                                         <span class="glyphicon glyphicon-trash"></span> 删除
                                     </a>
                                 </td>

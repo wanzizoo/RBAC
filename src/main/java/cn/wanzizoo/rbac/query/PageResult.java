@@ -1,10 +1,13 @@
 package cn.wanzizoo.rbac.query;
 
+import java.util.Collections;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class PageResult<T> {
 	private List<T> data;
 	private int currentPage;
@@ -24,5 +27,9 @@ public class PageResult<T> {
 		this.totalPage = this.totalCount % this.pageSize == 0 ? this.totalCount / this.pageSize :  this.totalCount / this.pageSize + 1;
 		this.prevPage = this.currentPage - 1 >= 1 ? this.currentPage - 1 : 1;
 		this.nextPage = this.currentPage + 1 <= this.totalPage ? this.currentPage + 1 : this.totalPage;
+	}
+
+	public PageResult(int currentPage,int pageSize){
+		this(Collections.EMPTY_LIST,currentPage,pageSize,0);
 	}
 }

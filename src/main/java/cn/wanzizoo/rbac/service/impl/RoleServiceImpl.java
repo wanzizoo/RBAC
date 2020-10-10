@@ -1,10 +1,13 @@
 package cn.wanzizoo.rbac.service.impl;
 
 import cn.wanzizoo.rbac.domain.Department;
+import cn.wanzizoo.rbac.domain.Role;
 import cn.wanzizoo.rbac.mapper.DepartmentMapper;
+import cn.wanzizoo.rbac.mapper.RoleMapper;
 import cn.wanzizoo.rbac.query.PageResult;
 import cn.wanzizoo.rbac.query.QueryObject;
 import cn.wanzizoo.rbac.service.IDepartmentService;
+import cn.wanzizoo.rbac.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,59 +20,59 @@ import java.util.List;
  * @description:
  **/
 @Service
-public class DepartmentServiceImpl implements IDepartmentService {
+public class RoleServiceImpl implements IRoleService {
 
     @Autowired
-    private DepartmentMapper departmentMapper;
+    private RoleMapper roleMapper;
 
     @Override
-    public void saveOrUpdate(Department department) {
-        if (null == department.getId()) {
-            departmentMapper.insert(department);
+    public void saveOrUpdate(Role role) {
+        if (null == role.getId()) {
+            roleMapper.insert(role);
         } else {
-            departmentMapper.updateByPrimaryKey(department);
+            roleMapper.updateByPrimaryKey(role);
         }
 
     }
 
     @Override
     public void delete(Long id) {
-        departmentMapper.deleteByPrimaryKey(id);
+        roleMapper.deleteByPrimaryKey(id);
     }
 
     @Override
-    public Department get(Long id) {
-        return departmentMapper.selectByPrimaryKey(id);
+    public Role get(Long id) {
+        return roleMapper.selectByPrimaryKey(id);
     }
 
     @Override
-    public List<Department> listAll() {
-        return departmentMapper.selectAll();
+    public List<Role> listAll() {
+        return roleMapper.selectAll();
     }
 
     @Override
-    public PageResult<Department> query(QueryObject qo) {
+    public PageResult<Role> query(QueryObject qo) {
         //查询总条数
-        int count = departmentMapper.selectCount(qo);
+        int count = roleMapper.selectCount(qo);
         //总条数为0直接返回空PageResult
         if (0 == count) {
-            return new PageResult<Department>(qo.getCurrentPage(), qo.getPageSize());
+            return new PageResult<Role>(qo.getCurrentPage(), qo.getPageSize());
         }
         //总条数不为0查结果集
-        List<Department> departments = departmentMapper.selectList(qo);
+        List<Role> roles = roleMapper.selectList(qo);
 
         //当前业结果集为空查询当前数据最后一页
-        if (null == departments || departments.size() == 0) {
+        if (null == roles || roles.size() == 0) {
             int pageSize = qo.getPageSize();
             if (count % pageSize == 0) {
                 qo.setCurrentPage(count / pageSize);
             } else {
                 qo.setCurrentPage(count / pageSize + 1);
             }
-            departments = departmentMapper.selectList(qo);
+            roles = roleMapper.selectList(qo);
         }
         //封装返回
-        return new PageResult<Department>(departments, qo.getCurrentPage(), qo.getPageSize(), count);
+        return new PageResult<Role>(roles, qo.getCurrentPage(), qo.getPageSize(), count);
 
     }
 }

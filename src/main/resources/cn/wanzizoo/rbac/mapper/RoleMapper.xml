@@ -29,4 +29,13 @@
     select id, name, sn
     from role
   </select>
+  <select id="selectCount" resultType="java.lang.Integer">
+    select count(*)
+    from role
+  </select>
+  <select id="selectList" resultType="cn.wanzizoo.rbac.domain.Role">
+    select id,name,sn
+    from role
+    limit #{start},#{pageSize}
+  </select>
 </mapper>

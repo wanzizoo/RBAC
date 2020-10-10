@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <header class="main-header">
+    <link rel="shortcut icon" href="https://b3logfile.com/file/2020/08/icons8catface96-0cc98db7.png">
     <a href="../../index2.html" class="logo">
         <span class="logo-mini">CRM</span>
         <span class="logo-lg"><b>客户管理系统</b></span>
