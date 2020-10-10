@@ -6,35 +6,35 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>角色管理</title>
+    <title>员工管理</title>
     <%@include file="/WEB-INF/views/common/link.jsp"%>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
     <%@include file="/WEB-INF/views/common/navbar.jsp" %>
     <!--菜单回显-->
-    <c:set var="currentMenu" value="role"/>
+    <c:set var="currentMenu" value="employee"/>
     <%@include file="/WEB-INF/views/common/menu.jsp" %>
     <div class="content-wrapper">
         <section class="content-header">
-            <h1>角色编辑</h1>
+            <h1>员工编辑</h1>
         </section>
         <section class="content">
             <div class="box">
-                <form class="form-horizontal" action="/role/saveOrUpdate.do" method="post" id="editForm">
-                    <input type="hidden" value="${r.id}" name="id">
+                <form class="form-horizontal" action="/employee/saveOrUpdate.do" method="post" id="editForm">
+                    <input type="hidden" value="${e.id}" name="id">
                     <input type="hidden" value="${currentPage}" name="currentPage">
                     <div class="form-group" style="margin-top: 10px;">
                         <label for="name" class="col-sm-1 control-label">名称：</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="name" name="name" value="${r.name}"
+                            <input type="text" class="form-control" id="name" name="name" value="${e.name}"
                                    placeholder="请输入角色名">
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 10px;">
                         <label for="sn" class="col-sm-1 control-label">编码：</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control" id="sn" name="sn" value="${r.sn}"
+                            <input type="text" class="form-control" id="sn" name="sn" value="${e.sn}"
                                    placeholder="请输入角色编码">
                         </div>
                     </div>

@@ -8,7 +8,13 @@
         <result column="email" property="email"/>
         <result column="age" property="age"/>
         <result column="admin" property="admin"/>
-        <result column="dept_id" property="dept_id"/>
+
+        <association property="dept" javaType="Department" columnPrefix="d_">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="sn" property="sn"/>
+        </association>
+
     </resultMap>
     <delete id="deleteByPrimaryKey">
     delete from employee
@@ -37,4 +43,30 @@
     select id, name, password, email, age, admin, dept_id
     from employee
   </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+        select count(*)
+        from employee
+        <where>
+            <if test="null != keyword">
+                AND (name like concat('%',#{keyword},'%') OR email like concat('%',#{keyword},'%'))
+            </if>
+            <if test="-1 != deptId">
+                AND dept_id = #{deptId}
+            </if>
+        </where>
+    </select>
+    <select id="selectList" resultMap="BaseResultMap">
+        select e.id, e.name, e.password, e.email, e.age, e.admin, d.id d_id, d.name d_name, d.sn d_sn
+        from employee e
+        left join department d on e.dept_id=d.id
+        <where>
+            <if test="null != keyword">
+                AND (e.name like concat('%',#{keyword},'%') OR e.email like concat('%',#{keyword},'%'))
+            </if>
+            <if test="-1 != deptId">
+                AND e.dept_id = #{deptId}
+            </if>
+        </where>
+        limit #{start},#{pageSize}
+    </select>
 </mapper>

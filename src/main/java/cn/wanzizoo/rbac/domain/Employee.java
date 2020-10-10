@@ -20,6 +20,7 @@ public class Employee {
 
     private Boolean admin;
 
-    private Long dept_id;
+    private Department dept;
+
 
 }
