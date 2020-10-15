@@ -14,19 +14,17 @@
     insert into permission (name, expression)
     values (#{name}, #{expression})
   </insert>
-    <update id="updateByPrimaryKey">
-    update permission
-    set name = #{name},
-      expression = #{expression}
-    where id = #{id}
-  </update>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-    select id, name, expression
-    from permission
-    where id = #{id}
-  </select>
     <select id="selectAll" resultMap="BaseResultMap">
     select id, name, expression
     from permission
+  </select>
+    <select id="selectCount" resultType="java.lang.Integer">
+    select count(*)
+    from permission
+  </select>
+    <select id="selectList" resultType="cn.wanzizoo.rbac.domain.Permission">
+    select id, name, expression
+    from permission
+    limit #{start},#{pageSize}
   </select>
 </mapper>

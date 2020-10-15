@@ -2,6 +2,8 @@ package cn.wanzizoo.rbac.domain;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,9 +20,10 @@ public class Employee {
 
     private Integer age;
 
-    private Boolean admin;
-
+    private boolean admin;
+    //多对一
     private Department dept;
-
+    //多对多
+    private List<Role> roles;
 
 }

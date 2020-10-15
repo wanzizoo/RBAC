@@ -29,13 +29,19 @@
     select id, name, sn
     from role
   </select>
-  <select id="selectCount" resultType="java.lang.Integer">
+    <select id="selectCount" resultType="java.lang.Integer">
     select count(*)
     from role
   </select>
-  <select id="selectList" resultType="cn.wanzizoo.rbac.domain.Role">
+    <select id="selectList" resultType="cn.wanzizoo.rbac.domain.Role">
     select id,name,sn
     from role
     limit #{start},#{pageSize}
+  </select>
+    <select id="selectByEmpId" resultType="Role">
+    select r.id, r.name, r.sn
+    from role r
+    left join employee_role er on r.id=er.role_id
+    where er.employee_id = #{empId}
   </select>
 </mapper>

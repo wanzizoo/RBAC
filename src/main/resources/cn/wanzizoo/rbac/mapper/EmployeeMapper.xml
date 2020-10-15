@@ -9,35 +9,46 @@
         <result column="age" property="age"/>
         <result column="admin" property="admin"/>
 
+        <!-- 多表查询封装  javaType:属性类型  columnPrefix：属性别名前缀-->
         <association property="dept" javaType="Department" columnPrefix="d_">
             <id column="id" property="id"/>
             <result column="name" property="name"/>
             <result column="sn" property="sn"/>
         </association>
+        <!--   额外sql封装  ofType:集合中元素多类型 -->
+        <collection property="roles" ofType="Role"
+                    select="cn.wanzizoo.rbac.mapper.RoleMapper.selectByEmpId" column="id"/>
 
     </resultMap>
     <delete id="deleteByPrimaryKey">
     delete from employee
     where id = #{id}
   </delete>
+    <delete id="deleteEmpAndRoleRelation">
+        delete from employee_role
+        where employee_id = #{empId}
+    </delete>
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
     insert into employee (name, password, email, age, admin, dept_id)
-    values (#{name}, #{password}, #{email}, #{age}, #{admin}, #{dept_id})
+    values (#{name}, #{password}, #{email}, #{age}, #{admin}, #{dept.id})
   </insert>
+    <insert id="insertEmpAndRoleRelation">
+        insert into  employee_role values(#{empId},#{roleId})
+    </insert>
     <update id="updateByPrimaryKey">
     update employee
     set name = #{name},
-      password = #{password},
       email = #{email},
       age = #{age},
       admin = #{admin},
-      dept_id = #{dept_id}
+      dept_id = #{dept.id}
     where id = #{id}
   </update>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap">
-    select id, name, password, email, age, admin, dept_id
-    from employee
-    where id = #{id}
+     select e.id, e.name, e.password, e.email, e.age, e.admin, d.id d_id, d.name d_name, d.sn d_sn
+     from employee e
+     left join department d on e.dept_id=d.id
+     where e.id = #{id}
   </select>
     <select id="selectAll" resultMap="BaseResultMap">
     select id, name, password, email, age, admin, dept_id

@@ -7,6 +7,7 @@ import cn.wanzizoo.rbac.query.QueryObject;
 import cn.wanzizoo.rbac.service.IDepartmentService;
 import cn.wanzizoo.rbac.service.IEmployeeService;
 import cn.wanzizoo.rbac.service.IRoleService;
+import cn.wanzizoo.rbac.util.RequiredPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,8 +31,12 @@ public class EmployeeController {
     @Autowired
     private IDepartmentService departmentService;
 
+    @Autowired
+    private IRoleService roleService;
+
 
     @RequestMapping("/list")
+    @RequiredPermission({"员工列表","employee:list"})
     public String list(Model model, @ModelAttribute("qo") EmployeeQueryObject qo) {
         model.addAttribute("result", employeeService.query(qo));
         model.addAttribute("depts", departmentService.listAll());
@@ -39,6 +44,7 @@ public class EmployeeController {
     }
 
     @RequestMapping("/delete")
+    @RequiredPermission({"员工删除","employee:delete"})
     public String delete(Long id, QueryObject qo) {
         if (null != id) {
             employeeService.delete(id);
@@ -47,18 +53,22 @@ public class EmployeeController {
     }
 
     @RequestMapping("/input")
+    @RequiredPermission({"员工编辑","employee:input"})
     public String input(Model model, Long id, Integer currentPage) {
         if (null != id) {
             model.addAttribute("e", employeeService.get(id));
         }
         model.addAttribute("currentPage", currentPage);
+        model.addAttribute("depts", departmentService.listAll());
+        model.addAttribute("roles", roleService.listAll());
         return "/employee/input";
     }
 
 
     @RequestMapping("/saveOrUpdate")
-    public String saveOrUpdate(Employee e, Integer currentPage) {
-        employeeService.saveOrUpdate(e);
+    @RequiredPermission({"员工保存或更新","employee:saveOrUpdate"})
+    public String saveOrUpdate(Employee e, Long[] roleIds, Integer currentPage) {
+        employeeService.saveOrUpdate(e,roleIds);
         return "redirect:/employee/list.do?currentPage=" + currentPage;
     }
 

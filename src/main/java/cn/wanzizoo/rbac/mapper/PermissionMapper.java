@@ -1,6 +1,9 @@
 package cn.wanzizoo.rbac.mapper;
 
+import cn.wanzizoo.rbac.domain.Department;
 import cn.wanzizoo.rbac.domain.Permission;
+import cn.wanzizoo.rbac.query.QueryObject;
+
 import java.util.List;
 
 public interface PermissionMapper {
@@ -8,9 +11,9 @@ public interface PermissionMapper {
 
     int insert(Permission record);
 
-    Permission selectByPrimaryKey(Long id);
-
     List<Permission> selectAll();
 
-    int updateByPrimaryKey(Permission record);
+    int selectCount(QueryObject qo);
+
+    List<Permission> selectList(QueryObject qo);
 }

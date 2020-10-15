@@ -26,18 +26,31 @@ public class EmployeeServiceImpl implements IEmployeeService {
     private EmployeeMapper employeeMapper;
 
     @Override
-    public void saveOrUpdate(Employee employee) {
+    public void saveOrUpdate(Employee employee, Long[] roleIds) {
         if (null == employee.getId()) {
+            //保存员工基本信息
             employeeMapper.insert(employee);
         } else {
             employeeMapper.updateByPrimaryKey(employee);
+            //删除旧关系
+            employeeMapper.deleteEmpAndRoleRelation(employee.getId());
+        }
+
+        //保存员工和角色的关系
+        if (null != roleIds && roleIds.length > 0) {
+            for (Long roleId : roleIds) {
+                employeeMapper.insertEmpAndRoleRelation(employee.getId(),roleId);
+            }
         }
 
     }
 
     @Override
     public void delete(Long id) {
+        //删除员工
         employeeMapper.deleteByPrimaryKey(id);
+        //删除关系
+        employeeMapper.deleteEmpAndRoleRelation(id);
     }
 
     @Override

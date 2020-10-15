@@ -14,7 +14,7 @@ import java.util.List;
  * @description: 员工的service
  **/
 public interface IEmployeeService {
-    void saveOrUpdate(Employee employee);
+    void saveOrUpdate(Employee employee,Long[] roleIds);
 
     void delete(Long id);
 
