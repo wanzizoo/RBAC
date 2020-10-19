@@ -1,12 +1,10 @@
 package cn.wanzizoo.rbac.service.impl;
 
-import cn.wanzizoo.rbac.domain.Department;
 import cn.wanzizoo.rbac.domain.Role;
-import cn.wanzizoo.rbac.mapper.DepartmentMapper;
+import cn.wanzizoo.rbac.mapper.EmployeeMapper;
 import cn.wanzizoo.rbac.mapper.RoleMapper;
 import cn.wanzizoo.rbac.query.PageResult;
 import cn.wanzizoo.rbac.query.QueryObject;
-import cn.wanzizoo.rbac.service.IDepartmentService;
 import cn.wanzizoo.rbac.service.IRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,12 +23,27 @@ public class RoleServiceImpl implements IRoleService {
     @Autowired
     private RoleMapper roleMapper;
 
+    @Autowired
+    private EmployeeMapper employeeMapper;
+
     @Override
-    public void saveOrUpdate(Role role) {
+    public void saveOrUpdate(Role role, Long[] permissionIds) {
         if (null == role.getId()) {
+            //保存基本角色信息
             roleMapper.insert(role);
         } else {
             roleMapper.updateByPrimaryKey(role);
+            //删除旧关系
+            roleMapper.deleteRoleAndPermissionRelation(role.getId());
+
+        }
+
+
+        if (null != permissionIds && permissionIds.length > 0) {
+            for (Long permissionId : permissionIds) {
+                //保存新关系
+                roleMapper.insertRoleAndPermissionRelation(role.getId(),permissionId);
+            }
         }
 
     }
@@ -38,6 +51,10 @@ public class RoleServiceImpl implements IRoleService {
     @Override
     public void delete(Long id) {
         roleMapper.deleteByPrimaryKey(id);
+        //删除角色与权限之间的关系
+        roleMapper.deleteRoleAndPermissionRelation(id);
+        //删除角色与员工之间的关系
+        employeeMapper.deleteEmpAndRoleRelation(null,id);
     }
 
     @Override

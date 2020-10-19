@@ -1,8 +1,8 @@
 package cn.wanzizoo.rbac.mapper;
 
-import cn.wanzizoo.rbac.domain.Department;
 import cn.wanzizoo.rbac.domain.Role;
 import cn.wanzizoo.rbac.query.QueryObject;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,4 +20,8 @@ public interface RoleMapper {
     int selectCount(QueryObject qo);
 
     List<Role> selectList(QueryObject qo);
+
+    void insertRoleAndPermissionRelation(@Param("roleId") Long roleId,@Param("permissionId") Long permissionId);
+
+    void deleteRoleAndPermissionRelation(Long roleId);
 }

@@ -9,8 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Employee {
-    private Long id;
+public class Employee extends BaseDomain{
 
     private String name;
 

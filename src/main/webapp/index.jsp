@@ -13,7 +13,7 @@
 <div class="wrapper">
     <%@include file="/WEB-INF/views/common/navbar.jsp" %>
     <!--菜单回显-->
-    <c:set var="currentMenu" value=""/>
+    <c:set var="currentMenu" value="index"/>
     <%@include file="/WEB-INF/views/common/menu.jsp" %>
     <div class="content-wrapper">
         <section class="content-header">

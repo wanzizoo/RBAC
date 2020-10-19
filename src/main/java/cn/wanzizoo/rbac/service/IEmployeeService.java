@@ -1,6 +1,5 @@
 package cn.wanzizoo.rbac.service;
 
-import cn.wanzizoo.rbac.domain.Department;
 import cn.wanzizoo.rbac.domain.Employee;
 import cn.wanzizoo.rbac.query.PageResult;
 import cn.wanzizoo.rbac.query.QueryObject;
@@ -23,4 +22,6 @@ public interface IEmployeeService {
     List<Employee> listAll();
 
     PageResult<Employee> query(QueryObject qo);
+
+    void login(String name, String password);
 }

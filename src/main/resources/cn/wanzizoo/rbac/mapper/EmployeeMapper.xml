@@ -15,7 +15,7 @@
             <result column="name" property="name"/>
             <result column="sn" property="sn"/>
         </association>
-        <!--   额外sql封装  ofType:集合中元素多类型 -->
+        <!--   额外sql封装  ofType:集合中元素的类型 -->
         <collection property="roles" ofType="Role"
                     select="cn.wanzizoo.rbac.mapper.RoleMapper.selectByEmpId" column="id"/>
 
@@ -26,7 +26,14 @@
   </delete>
     <delete id="deleteEmpAndRoleRelation">
         delete from employee_role
-        where employee_id = #{empId}
+        <where>
+            <if test="empId != null">
+                AND employee_id = #{empId}
+            </if>
+            <if test="roleId != null">
+                AND role_id = #{roleId}
+            </if>
+        </where>
     </delete>
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
     insert into employee (name, password, email, age, admin, dept_id)
@@ -79,5 +86,8 @@
             </if>
         </where>
         limit #{start},#{pageSize}
+    </select>
+    <select id="selectByNameAndPassword" resultType="cn.wanzizoo.rbac.domain.Employee">
+        select * from employee where name = #{name} AND password = #{password}
     </select>
 </mapper>

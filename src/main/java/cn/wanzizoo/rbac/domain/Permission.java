@@ -4,14 +4,17 @@ import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Permission {
-    private Long id;
+public class Permission extends BaseDomain{
 
     private String name;
 
     private String expression;
+
+    public Permission(String name, String expression) {
+        this.name = name;
+        this.expression = expression;
+    }
 
 }

@@ -1,6 +1,5 @@
 package cn.wanzizoo.rbac.mapper;
 
-import cn.wanzizoo.rbac.domain.Department;
 import cn.wanzizoo.rbac.domain.Employee;
 import cn.wanzizoo.rbac.query.QueryObject;
 import org.apache.ibatis.annotations.Param;
@@ -24,5 +23,7 @@ public interface EmployeeMapper {
     //mapper中方法多参数需要加Param注解来封装
     void insertEmpAndRoleRelation(@Param("empId") Long empId,@Param("roleId") Long roleId);
 
-    void deleteEmpAndRoleRelation(Long empId);
+    void deleteEmpAndRoleRelation(@Param("empId") Long empId,@Param("roleId") Long roleId);
+
+    Employee selectByNameAndPassword(@Param("name") String name, @Param("password") String password);
 }

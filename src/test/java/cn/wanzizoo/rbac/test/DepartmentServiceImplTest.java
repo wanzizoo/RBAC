@@ -22,7 +22,7 @@ public class DepartmentServiceImplTest {
 
     @Test
     public void saveOrUpdate() {
-        Department department = new Department(null,"测试","11");
+        Department department = new Department("测试","11");
         departmentService.saveOrUpdate(department);
 
     }

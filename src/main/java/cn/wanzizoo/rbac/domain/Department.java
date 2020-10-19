@@ -7,9 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Department {
-    private Long id;
-
+public class Department extends BaseDomain{
     private String name;
 
     private String sn;

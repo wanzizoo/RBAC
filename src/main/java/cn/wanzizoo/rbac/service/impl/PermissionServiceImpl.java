@@ -1,15 +1,20 @@
 package cn.wanzizoo.rbac.service.impl;
 
-import cn.wanzizoo.rbac.domain.Department;
 import cn.wanzizoo.rbac.domain.Permission;
 import cn.wanzizoo.rbac.mapper.PermissionMapper;
 import cn.wanzizoo.rbac.query.PageResult;
 import cn.wanzizoo.rbac.query.QueryObject;
 import cn.wanzizoo.rbac.service.IPermissionService;
+import cn.wanzizoo.rbac.util.RequiredPermission;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: RBAC
@@ -58,13 +63,42 @@ public class PermissionServiceImpl implements IPermissionService {
 
     }
 
+
+    //1:获取spring容器
+    @Autowired
+    private ApplicationContext ctx;
+
     @Override
     public void reload() {
-        //1:获取spring容器
-        //2:从容器中获取所有controller
+        //获取所有权限表达式
+        List<String> expressions = permissionMapper.selectAllExpression();
+
+        //2:从容器中获取所有controller,根据类上的注解获取所有Controller
+        // key：bean的名称       value：Controller对象
+        Map<String, Object> beansWithAnnotation = ctx.getBeansWithAnnotation(Controller.class);
+        Collection<Object> collections = beansWithAnnotation.values();
         //3:获取每个controller中的方法
-        //4:获取方法上贴的注解
-        //5:获取注解中传递的参数
-        //6:将参数保存在数据库中
+        for (Object collection : collections) {
+            //获取当前Controller对象的所有方法，不包括私有的
+            Method[] declaredMethods = collection.getClass().getDeclaredMethods();
+            for (Method method : declaredMethods) {
+                //4:获取方法上贴的注解,判断方法上是否有指定的注解
+                if (method.isAnnotationPresent(RequiredPermission.class)) {
+                    //5:获取注解中传递的参数
+                    RequiredPermission annotation = method.getAnnotation(RequiredPermission.class);
+                    String[] value = annotation.value();
+
+                    //6:将参数保存在数据库中
+                    if (null != value && value.length > 0) {
+                        Permission permission = new Permission(value[0], value[1]);
+                        //该权限表达式数据库中不存在，才执行保存操作
+                        if (!expressions.contains(permission.getExpression())) {
+                            permissionMapper.insert(permission);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 }

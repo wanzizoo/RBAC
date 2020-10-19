@@ -1,6 +1,5 @@
 package cn.wanzizoo.rbac.mapper;
 
-import cn.wanzizoo.rbac.domain.Department;
 import cn.wanzizoo.rbac.domain.Permission;
 import cn.wanzizoo.rbac.query.QueryObject;
 
@@ -16,4 +15,8 @@ public interface PermissionMapper {
     int selectCount(QueryObject qo);
 
     List<Permission> selectList(QueryObject qo);
+
+    List<String> selectAllExpression();
+
+    List<String> selectExpressionByEmpId(Long empId);
 }

@@ -1,6 +1,5 @@
 package cn.wanzizoo.rbac.service;
 
-import cn.wanzizoo.rbac.domain.Department;
 import cn.wanzizoo.rbac.domain.Role;
 import cn.wanzizoo.rbac.query.PageResult;
 import cn.wanzizoo.rbac.query.QueryObject;
@@ -14,7 +13,7 @@ import java.util.List;
  * @description: 部门的service
  **/
 public interface IRoleService {
-    void saveOrUpdate(Role role);
+    void saveOrUpdate(Role role, Long[] permissionIds);
 
     void delete(Long id);
 

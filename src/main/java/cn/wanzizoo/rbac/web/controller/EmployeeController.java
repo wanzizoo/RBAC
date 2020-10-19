@@ -1,7 +1,6 @@
 package cn.wanzizoo.rbac.web.controller;
 
 import cn.wanzizoo.rbac.domain.Employee;
-import cn.wanzizoo.rbac.domain.Role;
 import cn.wanzizoo.rbac.query.EmployeeQueryObject;
 import cn.wanzizoo.rbac.query.QueryObject;
 import cn.wanzizoo.rbac.service.IDepartmentService;

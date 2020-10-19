@@ -1,8 +1,6 @@
 package cn.wanzizoo.rbac.web.controller;
 
-import cn.wanzizoo.rbac.domain.Department;
 import cn.wanzizoo.rbac.query.QueryObject;
-import cn.wanzizoo.rbac.service.IDepartmentService;
 import cn.wanzizoo.rbac.service.IPermissionService;
 import cn.wanzizoo.rbac.util.RequiredPermission;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,16 +2,19 @@ package cn.wanzizoo.rbac.domain;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Role {
-    private Long id;
+public class Role extends BaseDomain{
 
     private String name;
 
     private String sn;
+
+    private List<Permission> permissions;
 
 }

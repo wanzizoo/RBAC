@@ -1,17 +1,20 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html;charset=UTF-8"
+         pageEncoding="utf-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>客户管理系统</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/css/error_css.css" rel="stylesheet" type="text/css" />
-    <jsp:include page="link.jsp"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>首页</title>
+    <%@include file="/WEB-INF/views/common/link.jsp" %>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-    <#include "navbar.jsp">
-    <#include "menu.jsp">
+    <%@include file="/WEB-INF/views/common/navbar.jsp" %>
+    <!--菜单回显-->
+    <c:set var="currentMenu" value=""/>
+    <%@include file="/WEB-INF/views/common/menu.jsp" %>
     <div class="content-wrapper">
         <section class="content-header">
             <h1>无操作权限</h1>
